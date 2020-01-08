@@ -16,7 +16,7 @@
      uniform float pointSize;
      varying float mag;
      void main() {
-        gl_Position = vec4((vertexCoords.y+3.141592)/3.141592*2.0-2.0, vertexCoords.x/(3.141592*2.0)*2.0-1.0, 0.0, 1.0);
+        gl_Position = vec4(vertexCoords.x/(3.141592*2.0)*2.0-1.0,(vertexCoords.y+3.141592)/3.141592*2.0-2.0, 0.0, 1.0);
         mag=vertexCoords.z;
         gl_PointSize = (5.0-mag)*1.5;
      }
@@ -29,7 +29,8 @@
         float dist = distance( gl_PointCoord, vec2(0.5) );
         if(dist>.5) discard;
 
-		gl_FragColor = vec4(1,1,1,1);
+        float c=(0.5-dist)/0.5;
+		gl_FragColor = vec4(1,1,1,c);
         
      }
 </script>
@@ -141,7 +142,7 @@ var velocities = new Float32Array(2*pointCt);  // The velocities of the points, 
  * the rectangle (assuming that object texture coordinates are used).
  */
 function draw() {
-   gl.clearColor(0,0,0,1);
+   gl.clearColor(.05,.05,.15,1);
    gl.clear(gl.COLOR_BUFFER_BIT);
    gl.bindBuffer(gl.ARRAY_BUFFER,vertexAttributeBuffer);
    gl.bufferData(gl.ARRAY_BUFFER, points, gl.DYNAMIC_DRAW);
@@ -193,19 +194,13 @@ function init() {
 </head>
 <body onload="init()" style="background-color:#DDD">
 
-<p>
-This example draws a single WebGL primitive using gl.POINTS.<br>
-Each disk is centered at one of the vertices of the primitive.<br>
-The vertex shader specifies the size of the point by assigning<br>
-to the variable gl_PointSize.  The point is really a square, but<br>
-the fragment shader can decide how to color/texture that square.
-</p>
+
 
 <noscript><hr><h3>This page requires Javascript and a web browser that supports WebGL</h3><hr></noscript>
 
 
 
-<canvas width=700 height=500 id="glcanvas" style="background-color:red"></canvas>
+<canvas width=3800 height=1900 id="glcanvas" style="background-color:red"></canvas>
 
 
 

@@ -1,6 +1,6 @@
 <html><body> 
 
-<canvas id='starcanvas' height=500 width=500 style="background:black"></canvas>
+<canvas id='starcanvas' height=500 width=1000 style="background:#050522"></canvas>
 <canvas id='mycanvas' height=200 width=500 style="background:black"></canvas>
 <script src="hipparcos2.js"></script>
 
@@ -21,16 +21,16 @@ console.log("Done");
 function drawStars(){
 	for(let i=0;i<hip.length;i++){
 		const index=i*4;
-		if(hip[index+2]<6){
+		if(hip[index+2]<5){
 			drawStar(hip[index],hip[index+1],hip[index+2],hip[index+3]);
 		}
 	}
 }
 
 function drawStar(ra,dec,mag,bv){
-	let dia=6-mag;
-	let x=(dec+3.141592/2)/Math.PI;
-	let y=ra/(3.141592*2.0);
+	let dia=Math.pow(2.5,5-mag)/30;
+	let y=1-(dec+3.141592/2)/Math.PI;
+	let x=ra/(3.141592*2.0);
 	var c = document.getElementById("starcanvas");
 	var ctx = c.getContext("2d");
 	ctx.beginPath();
